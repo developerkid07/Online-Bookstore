@@ -1,0 +1,38 @@
+<div class="shell">
+  <header>
+    <h1>Online Bookstore</h1>
+    <p>Browse books and place an order in seconds.</p>
+  </header>
+
+  <section class="catalog">
+    <article class="book" *ngFor="let book of books">
+      <div class="book-content">
+        <h2>{{ book.title }}</h2>
+        <p class="author">{{ book.author }}</p>
+        <p>{{ book.description }}</p>
+        <p class="price">${{ book.price }}</p>
+      </div>
+      <label>
+        <input type="checkbox" [checked]="selectedBookIds.includes(book.id)" (change)="toggleBook(book.id, $any($event.target).checked)">
+        Add to order
+      </label>
+    </article>
+  </section>
+
+  <section class="checkout">
+    <h2>Checkout</h2>
+    <label>
+      Name
+      <input [(ngModel)]="customerName" type="text" placeholder="Your full name">
+    </label>
+    <label>
+      Email
+      <input [(ngModel)]="customerEmail" type="email" placeholder="you@example.com">
+    </label>
+
+    <p class="total">Total: <strong>${{ totalPrice.toFixed(2) }}</strong></p>
+    <button (click)="submitOrder()">Place Order</button>
+
+    <p class="status" *ngIf="statusMessage">{{ statusMessage }}</p>
+  </section>
+</div>
